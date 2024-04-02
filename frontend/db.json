@@ -1,0 +1,14 @@
+{
+  "notes": [
+    {
+      "id": "2",
+      "content": "Browser can execute only JavaScript",
+      "important": false
+    },
+    {
+      "id": "8704",
+      "content": "new note...",
+      "important": true
+    }
+  ]
+}
