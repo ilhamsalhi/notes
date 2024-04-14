@@ -29,11 +29,22 @@ const errorHandler = (error, req, res, next) => {
   ) {
     return res.status(400).json({ error: "expected `username` to be unique" });
   }
+
+  if (error.name === "JsonWebTokenError") {
+    return res.status(401).json({ error: "invalid token" })
+  }
   next(error);
 };
+
+const tokenExtractor = (req, res, next) => {
+  const authR = req.get("Authorization")
+  req.token = authR && authR.startsWith("Bearer ") ? authR.replace("Bearer ", "") : null
+  next()
+}
 
 module.exports = {
   requestLogger,
   unknownEndpoint,
   errorHandler,
+  tokenExtractor
 };
