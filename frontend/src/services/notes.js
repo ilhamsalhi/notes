@@ -2,6 +2,12 @@ import axios from 'axios'
 
 const URL = '/api/notes/'
 
+let token = null;
+
+export const setToken = newToken => {
+    token = `Bearer ${newToken}`
+}
+
 export const getAll = () => {
     console.log("fetching data from server...")
    return (
@@ -18,10 +24,13 @@ export const getAll = () => {
    )
 }
 
-export const create = newObject => {
+export const create = (newObject) => {
     console.log("adding data to the server...")
+    console.log('token ', token)
     return (
-        axios.post(URL, newObject)
+        axios.post(URL, newObject, {
+            headers: {Authorization: token}
+        })
         .then((response) => {
             console.log("data added to the server successfully")
             console.log(response.data)
